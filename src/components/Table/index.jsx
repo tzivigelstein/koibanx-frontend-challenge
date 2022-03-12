@@ -1,6 +1,9 @@
 import styles from './index.module.css'
+import useApp from '../../hooks/useApp'
 
 export default function Table({ stores }) {
+  const { loading } = useApp()
+
   return (
     <main>
       <table className={styles.table}>
@@ -23,6 +26,19 @@ export default function Table({ stores }) {
             <th className={styles.columnHead}>Activo</th>
             <th className={styles.columnHead}>Última venta</th>
           </tr>
+          {stores.length !== 0 &&
+            stores.map(store => {
+              return (
+                <tr key={store._id}>
+                  <td>{store._id}</td>
+                </tr>
+              )
+            })}
+          {stores.length === 0 && !loading && (
+            <tr>
+              <td colSpan={8}>No hay resultados</td>
+            </tr>
+          )}
         </tbody>
       </table>
       <footer className={styles.footer}>
