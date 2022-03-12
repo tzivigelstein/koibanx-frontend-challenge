@@ -3,11 +3,11 @@ export default function Row({ store }) {
 
   return (
     <tr>
-      <td title={_id}>{_id}</td>
+      <td>{_id}</td>
       <td>{storeName}</td>
       <td>{CUIT}</td>
       {concepts.map(concept => {
-        return <td key={concept}>{concept}</td>
+        return <td key={crypto.randomUUID()}>{concept}</td>
       })}
       <td>{currentBalance}</td>
       <td>{active ? 'Si' : 'No'}</td>
