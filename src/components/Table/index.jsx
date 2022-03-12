@@ -1,9 +1,28 @@
 import styles from './index.module.css'
 import useApp from '../../hooks/useApp'
 import Row from '../Row'
+import ActivityIndicator from '../ActivityIndicator'
 
 export default function Table({ stores }) {
-  const { loading, page, totalPages, resultsCount, totalDocuments } = useApp()
+  const { loading, page, totalPages, resultsCount, totalDocuments, incrementPage, decrementPage } = useApp()
+
+  function handleNextPage() {
+    if (page !== totalPages) {
+      incrementPage()
+      if (searchTerm !== '') {
+        search(page + 1)
+      }
+    }
+  }
+
+  function handlePreviousPage() {
+    if (page !== 1) {
+      decrementPage()
+      if (searchTerm !== '') {
+        search(page - 1)
+      }
+    }
+  }
 
   return (
     <main>
@@ -48,8 +67,13 @@ export default function Table({ stores }) {
           </p>
         </div>
         <div className={styles.buttonsContainer}>
-          <button className={styles.button}>Anterior</button>
-          <button className={styles.button}>Siguiente</button>
+          {loading && <ActivityIndicator width={20} colorstyle="dark" />}
+          <button className={styles.button} disabled={page === 1 || loading} onClick={handlePreviousPage}>
+            Anterior
+          </button>
+          <button disabled={page === totalPages || loading} className={styles.button} onClick={handleNextPage}>
+            Siguiente
+          </button>
         </div>
       </footer>
     </main>
