@@ -5,7 +5,8 @@ import {
   DECREMENT_PAGE,
   SET_ACTIVE_FILTER,
   SET_SEARCH_TERM,
-  SET_HIGHLIGHT
+  SET_HIGHLIGHT,
+  RESET_PAGE_COUNT
 } from './types'
 
 export default function appReducer(state, { type, payload }) {
@@ -72,6 +73,12 @@ export default function appReducer(state, { type, payload }) {
       return {
         ...state,
         highlight: !state.highlight
+      }
+
+    case RESET_PAGE_COUNT:
+      return {
+        ...state,
+        page: payload
       }
 
     default:
