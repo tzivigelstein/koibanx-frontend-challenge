@@ -3,7 +3,7 @@ import { useReducer } from 'react'
 import appReducer from './appReducer'
 import AppContext from './appContext'
 
-import { SET_LOADING, GET_STORES_SUCCESSFUL, DECREMENT_PAGE, INCREMENT_PAGE } from './types'
+import { SET_LOADING, GET_STORES_SUCCESSFUL, DECREMENT_PAGE, INCREMENT_PAGE, SET_ACTIVE_FILTER } from './types'
 import { parseStores } from './utils/'
 
 const BASE_URL = import.meta.env.VITE_API_URL
@@ -69,6 +69,16 @@ export default function AppState({ children }) {
       })
   }
 
+  function setActiveFilter(filter) {
+    const FILTER_VALUES = {
+      ACTIVE: 1,
+      INACTIVE: 0,
+      ALL: null
+    }
+
+    dispatch({ type: SET_ACTIVE_FILTER, payload: FILTER_VALUES[filter] })
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -82,7 +92,8 @@ export default function AppState({ children }) {
         totalPages: state.totalPages,
         incrementPage,
         decrementPage,
-        getStores
+        getStores,
+        setActiveFilter
       }}
     >
       {children}
