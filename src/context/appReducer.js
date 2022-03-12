@@ -4,7 +4,8 @@ import {
   INCREMENT_PAGE,
   DECREMENT_PAGE,
   SET_ACTIVE_FILTER,
-  SET_SEARCH_TERM
+  SET_SEARCH_TERM,
+  SET_HIGHLIGHT
 } from './types'
 
 export default function appReducer(state, { type, payload }) {
@@ -65,6 +66,12 @@ export default function appReducer(state, { type, payload }) {
             { _id: { $regex: `/${payload}/` } }
           ]
         }
+      }
+
+    case SET_HIGHLIGHT:
+      return {
+        ...state,
+        highlight: !state.highlight
       }
 
     default:
