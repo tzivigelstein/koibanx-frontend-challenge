@@ -11,7 +11,9 @@ import {
   SET_ACTIVE_FILTER,
   SET_SEARCH_TERM,
   SET_HIGHLIGHT,
-  RESET_PAGE_COUNT
+  RESET_PAGE_COUNT,
+  UPDATE_SORT,
+  UPDATE_HINT
 } from './types'
 import { parseStores } from './utils/'
 
@@ -34,7 +36,9 @@ export default function AppState({ children }) {
     query: {},
     hint: {},
     searchTerm: '',
-    highlight: true
+    highlight: true,
+    sortDirection: -1,
+    sortColumnId: ''
   }
 
   const [state, dispatch] = useReducer(appReducer, initialState)
@@ -151,6 +155,57 @@ export default function AppState({ children }) {
     dispatch({ type: RESET_PAGE_COUNT, payload: DEFAULT_PAGE_COUNT })
   }
 
+  function sortBy(id) {
+    console.log('EXECUTING SORT', id)
+
+    dispatch({
+      type: SET_LOADING,
+      payload: true
+    })
+
+    const { page, results, query, hint } = state
+
+    const newHint = {
+      ...hint,
+      $max: results,
+      $skip: (page - 1) * results,
+      $orderby: { [id]: state.sortDirection === 1 ? -1 : 1 }
+    }
+
+    const jsonQuery = JSON.stringify(query)
+    const jsonHint = JSON.stringify(newHint)
+
+    dispatch({
+      type: UPDATE_HINT,
+      payload: newHint
+    })
+
+    dispatch({
+      type: UPDATE_SORT,
+      payload: id
+    })
+
+    const url = `${BASE_URL}q=${jsonQuery}&h=${jsonHint}&totals=true`
+
+    console.log(url)
+
+    fetch(url, { headers: HEADERS })
+      .then(res => res.json())
+      .then(({ data, totals }) => {
+        dispatch({
+          type: GET_STORES_SUCCESSFUL,
+          payload: { data: parseStores(data), totals }
+        })
+      })
+      .catch(console.error)
+      .finally(() => {
+        dispatch({
+          type: SET_LOADING,
+          payload: false
+        })
+      })
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -165,6 +220,8 @@ export default function AppState({ children }) {
         totalPages: state.totalPages,
         searchTerm: state.searchTerm,
         highlight: state.highlight,
+        sortDirection: state.sortDirection,
+        sortColumnId: state.sortColumnId,
         incrementPage,
         decrementPage,
         getStores,
@@ -172,7 +229,8 @@ export default function AppState({ children }) {
         setSearchTerm,
         prefersHighlight,
         search,
-        resetPageCount
+        resetPageCount,
+        sortBy
       }}
     >
       {children}
