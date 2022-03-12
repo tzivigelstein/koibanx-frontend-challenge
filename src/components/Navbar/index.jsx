@@ -42,9 +42,6 @@ export default function Navbar() {
         <button className={styles.searchButton}>Buscar</button>
       </nav>
       <div className={styles.controlsContainer}>
-        <button className={styles.removeFiltersButton}>Eliminar filtros</button>
-      </div>
-      <div className={styles.controlsContainer}>
         {searchTerm !== '' && <p>Resultados para "{searchTerm}"</p>}
         {searchTerm !== '' && (
           <label>
