@@ -2,10 +2,8 @@ export default function Row({ store }) {
   const { _id, storeName, CUIT, concepts, currentBalance, active, lastTransaction } = store
 
   return (
-    <tr className={styles.row}>
-      <td title={_id} className={styles.idColumn}>
-        {_id}
-      </td>
+    <tr>
+      <td title={_id}>{_id}</td>
       <td>{storeName}</td>
       <td>{CUIT}</td>
       {concepts.map(concept => {
