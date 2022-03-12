@@ -3,7 +3,7 @@ import useApp from '../../hooks/useApp'
 import Row from '../Row'
 
 export default function Table({ stores }) {
-  const { loading } = useApp()
+  const { loading, page, totalPages, resultsCount, totalDocuments } = useApp()
 
   return (
     <main>
@@ -40,8 +40,12 @@ export default function Table({ stores }) {
       </table>
       <footer className={styles.footer}>
         <div className={styles.infoContainer}>
-          <span>Página: 0/0</span>
-          <p>Mostrando 0 de 0 resultados.</p>
+          <span>
+            Página: {page}/{totalPages}
+          </span>
+          <p>
+            Mostrando {resultsCount} de {totalDocuments} resultados.
+          </p>
         </div>
         <div className={styles.buttonsContainer}>
           <button className={styles.button}>Anterior</button>
