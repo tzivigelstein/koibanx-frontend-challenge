@@ -1,0 +1,54 @@
+.navbar {
+  margin: 0 0 1rem 0;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.searchBarContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border: 2px solid rgb(133 133 133);
+  border-radius: 0.2rem;
+}
+
+.searchBarContainer:focus-within {
+  outline: 2px solid black;
+}
+
+.input {
+  width: 100%;
+  padding: 0.5rem 0.5rem;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+}
+
+.select {
+  border: none;
+  font-size: 1rem;
+  outline: none;
+}
+
+.searchButton {
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.searchButton:disabled {
+  cursor: not-allowed;
+}
+
+.controlsContainer {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+  gap: 1rem;
+}
+
+.removeFiltersButton {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
