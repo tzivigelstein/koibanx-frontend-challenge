@@ -39,7 +39,9 @@ export default function Navbar() {
             <option value="INACTIVE">Inactivo</option>
           </select>
         </div>
-        <button className={styles.searchButton}>Buscar</button>
+        <button disabled={loading} className={styles.searchButton}>
+          Buscar
+        </button>
       </nav>
       <div className={styles.controlsContainer}>
         {searchTerm !== '' && <p>Resultados para "{searchTerm}"</p>}
