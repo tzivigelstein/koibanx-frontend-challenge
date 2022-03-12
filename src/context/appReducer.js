@@ -1,4 +1,4 @@
-import { SET_LOADING, GET_STORES_SUCCESSFUL, INCREMENT_PAGE, DECREMENT_PAGE } from './types'
+import { SET_LOADING, GET_STORES_SUCCESSFUL, INCREMENT_PAGE, DECREMENT_PAGE, SET_ACTIVE_FILTER } from './types'
 
 export default function appReducer(state, { type, payload }) {
   switch (type) {
@@ -27,6 +27,23 @@ export default function appReducer(state, { type, payload }) {
         resultsCount: payload.totals.count,
         totalPages: Math.ceil(payload.totals.total / payload.totals.max),
         stores: payload.data
+      }
+
+    case SET_ACTIVE_FILTER:
+      if (payload === null) {
+        delete state.query.active
+        return {
+          ...state,
+          storeStatus: null
+        }
+      }
+      return {
+        ...state,
+        storeStatus: payload,
+        query: {
+          ...state.query,
+          active: payload
+        }
       }
 
     default:
