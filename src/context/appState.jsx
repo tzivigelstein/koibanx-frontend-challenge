@@ -1,7 +1,10 @@
 import { useReducer } from 'react'
+
 import appReducer from './appReducer'
 import AppContext from './appContext'
+
 import { SET_LOADING, GET_STORES_SUCCESSFUL } from './types'
+import { parseStores } from './utils/'
 
 const BASE_URL = import.meta.env.VITE_API_URL
 const API_KEY = import.meta.env.VITE_API_KEY
