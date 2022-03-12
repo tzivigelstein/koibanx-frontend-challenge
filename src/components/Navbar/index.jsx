@@ -9,7 +9,17 @@ const STORE_STATUSES = {
 }
 
 export default function Navbar() {
-  const { loading, storeStatus, setActiveFilter, searchTerm, setSearchTerm, highlight, prefersHighlight } = useApp()
+  const {
+    loading,
+    storeStatus,
+    setActiveFilter,
+    searchTerm,
+    setSearchTerm,
+    highlight,
+    prefersHighlight,
+    resetPageCount,
+    search
+  } = useApp()
 
   function handleActiveFilter(e) {
     setActiveFilter(e.target.value)
@@ -20,6 +30,11 @@ export default function Navbar() {
     const { value } = event.target
 
     setSearchTerm(value)
+  }
+
+  function handleSearch() {
+    resetPageCount()
+    search(1)
   }
 
   return (
@@ -39,7 +54,7 @@ export default function Navbar() {
             <option value="INACTIVE">Inactivo</option>
           </select>
         </div>
-        <button disabled={loading} className={styles.searchButton}>
+        <button disabled={loading} onClick={handleSearch} className={styles.searchButton}>
           Buscar
         </button>
       </nav>
