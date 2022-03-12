@@ -88,7 +88,7 @@ export default function Table({ stores }) {
             })}
           {stores.length === 0 && !loading && (
             <tr>
-              <td colSpan={8}>No hay resultados</td>
+              <td colSpan={12}>No hay resultados</td>
             </tr>
           )}
         </tbody>
