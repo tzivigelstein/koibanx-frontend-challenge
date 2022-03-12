@@ -1,5 +1,6 @@
 import styles from './index.module.css'
 import useApp from '../../hooks/useApp'
+import Row from '../Row'
 
 export default function Table({ stores }) {
   const { loading } = useApp()
@@ -28,11 +29,7 @@ export default function Table({ stores }) {
           </tr>
           {stores.length !== 0 &&
             stores.map(store => {
-              return (
-                <tr key={store._id}>
-                  <td>{store._id}</td>
-                </tr>
-              )
+              return <Row key={store._id} store={store} />
             })}
           {stores.length === 0 && !loading && (
             <tr>
