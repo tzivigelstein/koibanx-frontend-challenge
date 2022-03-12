@@ -48,6 +48,8 @@ export default function AppState({ children }) {
   }
 
   function getStores() {
+    if (state.searchTerm !== '') return
+
     const { page, results, query } = state
 
     const jsonQuery = JSON.stringify(query)
@@ -120,7 +122,8 @@ export default function AppState({ children }) {
         getStores,
         setActiveFilter,
         setSearchTerm,
-        prefersHighlight
+        prefersHighlight,
+        search
       }}
     >
       {children}
