@@ -8,7 +8,8 @@ import {
   SET_HIGHLIGHT,
   RESET_PAGE_COUNT,
   UPDATE_HINT,
-  UPDATE_SORT
+  UPDATE_SORT,
+  RESET_FILTERS
 } from './types'
 
 export default function appReducer(state, { type, payload }) {
@@ -94,6 +95,20 @@ export default function appReducer(state, { type, payload }) {
         ...state,
         sortDirection: state.sortDirection === 1 ? -1 : 1,
         sortColumnId: payload
+      }
+
+    case RESET_FILTERS:
+      const { $orderby, ...rest } = state.hint
+      return {
+        ...state,
+        sortColumnId: '',
+        sortDirection: 1,
+        searchTerm: '',
+        storeStatus: null,
+        query: {},
+        hint: {
+          ...rest
+        }
       }
 
     default:
