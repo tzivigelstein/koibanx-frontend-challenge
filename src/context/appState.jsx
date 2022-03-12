@@ -10,7 +10,8 @@ import {
   INCREMENT_PAGE,
   SET_ACTIVE_FILTER,
   SET_SEARCH_TERM,
-  SET_HIGHLIGHT
+  SET_HIGHLIGHT,
+  RESET_PAGE_COUNT
 } from './types'
 import { parseStores } from './utils/'
 
@@ -145,6 +146,11 @@ export default function AppState({ children }) {
       })
   }
 
+  function resetPageCount() {
+    const DEFAULT_PAGE_COUNT = 1
+    dispatch({ type: RESET_PAGE_COUNT, payload: DEFAULT_PAGE_COUNT })
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -165,7 +171,8 @@ export default function AppState({ children }) {
         setActiveFilter,
         setSearchTerm,
         prefersHighlight,
-        search
+        search,
+        resetPageCount
       }}
     >
       {children}
