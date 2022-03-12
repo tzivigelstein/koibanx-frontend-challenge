@@ -1,5 +1,3 @@
-import styles from './index.module.css'
-
 export default function Row({ store }) {
   const { _id, storeName, CUIT, concepts, currentBalance, active, lastTransaction } = store
 
