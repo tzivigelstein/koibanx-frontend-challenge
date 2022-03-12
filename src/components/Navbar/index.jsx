@@ -8,17 +8,30 @@ const STORE_STATUSES = {
 }
 
 export default function Navbar() {
-  const { storeStatus, setActiveFilter } = useApp()
+  const { storeStatus, setActiveFilter, searchTerm } = useApp()
 
   function handleActiveFilter(e) {
     setActiveFilter(e.target.value)
+  }
+
+  function handleInputChange(event) {
+    event.preventDefault()
+    const { value } = event.target
+
+    setSearchTerm(value)
   }
 
   return (
     <>
       <nav className={styles.navbar}>
         <div className={styles.searchBarContainer}>
-          <input className={styles.input} type="text" placeholder="Buscar..." />
+          <input
+            onChange={handleInputChange}
+            value={searchTerm}
+            className={styles.input}
+            type="text"
+            placeholder="Buscar..."
+          />
           <select onChange={handleActiveFilter} value={STORE_STATUSES[storeStatus]} className={styles.select}>
             <option value="ALL">Todos</option>
             <option value="ACTIVE">Activo</option>
