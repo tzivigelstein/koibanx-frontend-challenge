@@ -8,7 +8,7 @@ In the project directory, you can run:
 
 Run `npm i` or `npm install` in project root to install the necessary packages.
 
-When developing, the database throws a CORS error when trying to connect to the database.
+When developing, the database throws a CORS error when trying to connect.
 The only way I could solve this issue is to install the following extension in Chrome:
 
 - [Moesif Website](https://www.moesif.com/)
@@ -56,7 +56,7 @@ able to retrieve the data from the API and I would be losing contact with the pa
 Having decided what source of data I would be using, I noticed that the challenge specifically asked
 that the queries in the text input should be able to get data that was similar to the given search term.
 
-Searching for **34**, should retrive:
+Searching for **34**, should retrieve:
 
 - Store **34**
 - CUIT **34**0-3456522-90
