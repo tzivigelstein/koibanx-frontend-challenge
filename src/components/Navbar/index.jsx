@@ -1,4 +1,5 @@
 import styles from './index.module.css'
+import useApp from '../../hooks/useApp'
 
 const STORE_STATUSES = {
   1: 'ACTIVE',
@@ -7,7 +8,7 @@ const STORE_STATUSES = {
 }
 
 export default function Navbar() {
-  const { storeStatus, setActiveFilter } = useContext(StoreContext)
+  const { storeStatus, setActiveFilter } = useApp()
 
   function handleActiveFilter(e) {
     setActiveFilter(e.target.value)
