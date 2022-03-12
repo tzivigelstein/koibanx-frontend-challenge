@@ -31,6 +31,7 @@ export default function AppState({ children }) {
     totalPages: 0,
     stores: [],
     query: {},
+    hint: {},
     searchTerm: '',
     highlight: true
   }
@@ -104,12 +105,53 @@ export default function AppState({ children }) {
     })
   }
 
+  function search(page) {
+    console.log('EXECUTING SEARCH')
+
+    dispatch({
+      type: SET_LOADING,
+      payload: true
+    })
+
+    const { results, query, hint } = state
+
+    const newHint = {
+      ...hint,
+      $max: results,
+      $skip: (page - 1) * results
+    }
+
+    const jsonQuery = JSON.stringify(query)
+    const jsonHint = JSON.stringify(newHint)
+
+    const url = `${BASE_URL}q=${jsonQuery}&h=${jsonHint}&totals=true`
+
+    console.log(url)
+
+    fetch(url, { headers: HEADERS })
+      .then(res => res.json())
+      .then(({ data, totals }) => {
+        dispatch({
+          type: GET_STORES_SUCCESSFUL,
+          payload: { data: parseStores(data), totals }
+        })
+      })
+      .catch(console.error)
+      .finally(() => {
+        dispatch({
+          type: SET_LOADING,
+          payload: false
+        })
+      })
+  }
+
   return (
     <AppContext.Provider
       value={{
         page: state.page,
         results: state.results,
         query: state.query,
+        hint: state.hint,
         loading: state.loading,
         stores: state.stores,
         totalDocuments: state.totalDocuments,
