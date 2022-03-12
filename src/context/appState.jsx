@@ -9,7 +9,8 @@ import {
   DECREMENT_PAGE,
   INCREMENT_PAGE,
   SET_ACTIVE_FILTER,
-  SET_SEARCH_TERM
+  SET_SEARCH_TERM,
+  SET_HIGHLIGHT
 } from './types'
 import { parseStores } from './utils/'
 
@@ -30,7 +31,8 @@ export default function AppState({ children }) {
     totalPages: 0,
     stores: [],
     query: {},
-    searchTerm: ''
+    searchTerm: '',
+    highlight: true
   }
 
   const [state, dispatch] = useReducer(appReducer, initialState)
@@ -94,6 +96,12 @@ export default function AppState({ children }) {
     })
   }
 
+  function prefersHighlight() {
+    dispatch({
+      type: SET_HIGHLIGHT
+    })
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -106,11 +114,13 @@ export default function AppState({ children }) {
         resultsCount: state.resultsCount,
         totalPages: state.totalPages,
         searchTerm: state.searchTerm,
+        highlight: state.highlight,
         incrementPage,
         decrementPage,
         getStores,
         setActiveFilter,
-        setSearchTerm
+        setSearchTerm,
+        prefersHighlight
       }}
     >
       {children}
