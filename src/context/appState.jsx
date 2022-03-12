@@ -3,7 +3,7 @@ import { useReducer } from 'react'
 import appReducer from './appReducer'
 import AppContext from './appContext'
 
-import { SET_LOADING, GET_STORES_SUCCESSFUL } from './types'
+import { SET_LOADING, GET_STORES_SUCCESSFUL, DECREMENT_PAGE, INCREMENT_PAGE } from './types'
 import { parseStores } from './utils/'
 
 const BASE_URL = import.meta.env.VITE_API_URL
@@ -26,6 +26,16 @@ export default function AppState({ children }) {
   }
 
   const [state, dispatch] = useReducer(appReducer, initialState)
+
+  function incrementPage() {
+    const DEFAULT_INCREMENT = 1
+    dispatch({ type: INCREMENT_PAGE, payload: DEFAULT_INCREMENT })
+  }
+
+  function decrementPage() {
+    const DEFAULT_DECREMENT = 1
+    dispatch({ type: DECREMENT_PAGE, payload: DEFAULT_DECREMENT })
+  }
 
   function getStores() {
     const { page, results, query } = state
@@ -70,6 +80,8 @@ export default function AppState({ children }) {
         totalDocuments: state.totalDocuments,
         resultsCount: state.resultsCount,
         totalPages: state.totalPages,
+        incrementPage,
+        decrementPage,
         getStores
       }}
     >
