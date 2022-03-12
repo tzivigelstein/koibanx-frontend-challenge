@@ -1,5 +1,6 @@
 import styles from './index.module.css'
 import useApp from '../../hooks/useApp'
+import { Trash } from '../Icons'
 
 const STORE_STATUSES = {
   1: 'ACTIVE',
