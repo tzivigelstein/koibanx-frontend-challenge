@@ -6,7 +6,9 @@ import {
   SET_ACTIVE_FILTER,
   SET_SEARCH_TERM,
   SET_HIGHLIGHT,
-  RESET_PAGE_COUNT
+  RESET_PAGE_COUNT,
+  UPDATE_HINT,
+  UPDATE_SORT
 } from './types'
 
 export default function appReducer(state, { type, payload }) {
@@ -79,6 +81,19 @@ export default function appReducer(state, { type, payload }) {
       return {
         ...state,
         page: payload
+      }
+
+    case UPDATE_HINT:
+      return {
+        ...state,
+        hint: payload
+      }
+
+    case UPDATE_SORT:
+      return {
+        ...state,
+        sortDirection: state.sortDirection === 1 ? -1 : 1,
+        sortColumnId: payload
       }
 
     default:
