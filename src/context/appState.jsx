@@ -13,7 +13,8 @@ import {
   SET_HIGHLIGHT,
   RESET_PAGE_COUNT,
   UPDATE_SORT,
-  UPDATE_HINT
+  UPDATE_HINT,
+  RESET_FILTERS
 } from './types'
 import { parseStores } from './utils/'
 
@@ -206,6 +207,12 @@ export default function AppState({ children }) {
       })
   }
 
+  function resetFilters() {
+    dispatch({
+      type: RESET_FILTERS
+    })
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -230,7 +237,8 @@ export default function AppState({ children }) {
         prefersHighlight,
         search,
         resetPageCount,
-        sortBy
+        sortBy,
+        resetFilters
       }}
     >
       {children}
