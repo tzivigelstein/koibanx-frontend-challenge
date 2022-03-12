@@ -8,7 +8,7 @@ const STORE_STATUSES = {
 }
 
 export default function Navbar() {
-  const { storeStatus, setActiveFilter, searchTerm, setSearchTerm } = useApp()
+  const { loading, storeStatus, setActiveFilter, searchTerm, setSearchTerm, highlight, prefersHighlight } = useApp()
 
   function handleActiveFilter(e) {
     setActiveFilter(e.target.value)
@@ -42,6 +42,24 @@ export default function Navbar() {
       </nav>
       <div className={styles.controlsContainer}>
         <button className={styles.removeFiltersButton}>Eliminar filtros</button>
+      </div>
+      <div className={styles.controlsContainer}>
+        {searchTerm !== '' && <p>Resultados para "{searchTerm}"</p>}
+        {searchTerm !== '' && (
+          <label>
+            Mostrar ocurrencias{' '}
+            <input
+              onChange={e => prefersHighlight(e.target.checked)}
+              type="checkbox"
+              name=""
+              id=""
+              checked={highlight}
+            />
+          </label>
+        )}
+        <button disabled={loading} className={styles.removeFiltersButton}>
+          Eliminar filtros <Trash stroke="#737373" width={16} />
+        </button>
       </div>
     </>
   )
