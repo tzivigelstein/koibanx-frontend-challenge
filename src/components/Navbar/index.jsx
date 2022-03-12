@@ -18,7 +18,8 @@ export default function Navbar() {
     highlight,
     prefersHighlight,
     resetPageCount,
-    search
+    search,
+    resetFilters
   } = useApp()
 
   function handleActiveFilter(e) {
@@ -35,6 +36,10 @@ export default function Navbar() {
   function handleSearch() {
     resetPageCount()
     search(1)
+  }
+
+  function removeAllFilters() {
+    resetFilters()
   }
 
   return (
@@ -72,7 +77,7 @@ export default function Navbar() {
             />
           </label>
         )}
-        <button disabled={loading} className={styles.removeFiltersButton}>
+        <button onClick={removeAllFilters} disabled={loading} className={styles.removeFiltersButton}>
           Eliminar filtros <Trash stroke="#737373" width={16} />
         </button>
       </div>
