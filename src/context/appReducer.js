@@ -1,4 +1,11 @@
-import { SET_LOADING, GET_STORES_SUCCESSFUL, INCREMENT_PAGE, DECREMENT_PAGE, SET_ACTIVE_FILTER } from './types'
+import {
+  SET_LOADING,
+  GET_STORES_SUCCESSFUL,
+  INCREMENT_PAGE,
+  DECREMENT_PAGE,
+  SET_ACTIVE_FILTER,
+  SET_SEARCH_TERM
+} from './types'
 
 export default function appReducer(state, { type, payload }) {
   switch (type) {
@@ -43,6 +50,20 @@ export default function appReducer(state, { type, payload }) {
         query: {
           ...state.query,
           active: payload
+        }
+      }
+
+    case SET_SEARCH_TERM:
+      return {
+        ...state,
+        searchTerm: payload,
+        query: {
+          ...state.query,
+          $or: [
+            { CUIT: { $regex: `/${payload}/` } },
+            { store: { $regex: `/${payload}/` } },
+            { _id: { $regex: `/${payload}/` } }
+          ]
         }
       }
 
