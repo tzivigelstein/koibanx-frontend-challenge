@@ -1,0 +1,53 @@
+.table {
+  text-align: center;
+  width: 100%;
+}
+
+.columnHead {
+  font-weight: bold;
+}
+
+@media (hover) {
+  .columnHead[aria-sort='true']:hover {
+    background-color: #eee;
+    cursor: pointer;
+  }
+}
+
+.columnHelper {
+  font-size: 0.8em;
+  color: #737373;
+  display: inline-flex;
+  align-items: center;
+}
+
+.columnHelper[aria-active='true'] {
+  background-color: #ffff00;
+}
+
+.footer {
+  width: 100%;
+  padding: 1rem;
+  gap: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.infoContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.buttonsContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.button {
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+}
