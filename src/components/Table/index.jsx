@@ -2,9 +2,23 @@ import styles from './index.module.css'
 import useApp from '../../hooks/useApp'
 import Row from '../Row'
 import ActivityIndicator from '../ActivityIndicator'
+import { Arrow } from '../Icons'
 
 export default function Table({ stores }) {
-  const { loading, page, totalPages, resultsCount, totalDocuments, incrementPage, decrementPage, searchTerm } = useApp()
+  const {
+    loading,
+    page,
+    totalPages,
+    resultsCount,
+    totalDocuments,
+    incrementPage,
+    decrementPage,
+    searchTerm,
+    search,
+    sortBy,
+    sortColumnId,
+    sortDirection
+  } = useApp()
 
   function handleNextPage() {
     if (page !== totalPages) {
@@ -24,17 +38,39 @@ export default function Table({ stores }) {
     }
   }
 
+  function setCUITOrder(id) {
+    if (loading) return
+    sortBy(id)
+  }
+
+  function setStoreOrder(id) {
+    if (loading) return
+    sortBy(id)
+  }
+
   return (
     <main>
       <table className={styles.table}>
         <tbody>
           <tr>
             <th className={styles.columnHead}>ID</th>
-            <th className={styles.columnHead} aria-sort={true}>
-              Comercio <span className={styles.columnHelper}>A-Z</span>
+            <th onClick={() => setStoreOrder('store')} className={styles.columnHead} aria-sort={true}>
+              Comercio{' '}
+              <span className={styles.columnHelper}>
+                A-Z
+                {sortColumnId !== '' && sortColumnId === 'store' && (
+                  <Arrow dir={sortDirection === 1 ? 'down' : 'up'} width={16} />
+                )}
+              </span>
             </th>
-            <th className={styles.columnHead} aria-sort={true}>
-              CUIT <span className={styles.columnHelper}>A-Z</span>
+            <th onClick={() => setCUITOrder('CUIT')} className={styles.columnHead} aria-sort={true}>
+              CUIT{' '}
+              <span className={styles.columnHelper}>
+                A-Z{' '}
+                {sortColumnId !== '' && sortColumnId === 'CUIT' && (
+                  <Arrow dir={sortDirection === 1 ? 'down' : 'up'} width={16} />
+                )}
+              </span>
             </th>
             <th className={styles.columnHead}>Concepto 1</th>
             <th className={styles.columnHead}>Concepto 2</th>
