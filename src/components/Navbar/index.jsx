@@ -8,7 +8,7 @@ const STORE_STATUSES = {
 }
 
 export default function Navbar() {
-  const { storeStatus, setActiveFilter, searchTerm } = useApp()
+  const { storeStatus, setActiveFilter, searchTerm, setSearchTerm } = useApp()
 
   function handleActiveFilter(e) {
     setActiveFilter(e.target.value)
