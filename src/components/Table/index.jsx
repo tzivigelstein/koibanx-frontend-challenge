@@ -4,7 +4,7 @@ import Row from '../Row'
 import ActivityIndicator from '../ActivityIndicator'
 
 export default function Table({ stores }) {
-  const { loading, page, totalPages, resultsCount, totalDocuments, incrementPage, decrementPage } = useApp()
+  const { loading, page, totalPages, resultsCount, totalDocuments, incrementPage, decrementPage, searchTerm } = useApp()
 
   function handleNextPage() {
     if (page !== totalPages) {
