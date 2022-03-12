@@ -3,7 +3,14 @@ import { useReducer } from 'react'
 import appReducer from './appReducer'
 import AppContext from './appContext'
 
-import { SET_LOADING, GET_STORES_SUCCESSFUL, DECREMENT_PAGE, INCREMENT_PAGE, SET_ACTIVE_FILTER } from './types'
+import {
+  SET_LOADING,
+  GET_STORES_SUCCESSFUL,
+  DECREMENT_PAGE,
+  INCREMENT_PAGE,
+  SET_ACTIVE_FILTER,
+  SET_SEARCH_TERM
+} from './types'
 import { parseStores } from './utils/'
 
 const BASE_URL = import.meta.env.VITE_API_URL
@@ -22,7 +29,8 @@ export default function AppState({ children }) {
     totalDocuments: 0,
     totalPages: 0,
     stores: [],
-    query: {}
+    query: {},
+    searchTerm: ''
   }
 
   const [state, dispatch] = useReducer(appReducer, initialState)
@@ -79,6 +87,13 @@ export default function AppState({ children }) {
     dispatch({ type: SET_ACTIVE_FILTER, payload: FILTER_VALUES[filter] })
   }
 
+  function setSearchTerm(searchTerm) {
+    dispatch({
+      type: SET_SEARCH_TERM,
+      payload: searchTerm.trim()
+    })
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -90,10 +105,12 @@ export default function AppState({ children }) {
         totalDocuments: state.totalDocuments,
         resultsCount: state.resultsCount,
         totalPages: state.totalPages,
+        searchTerm: state.searchTerm,
         incrementPage,
         decrementPage,
         getStores,
-        setActiveFilter
+        setActiveFilter,
+        setSearchTerm
       }}
     >
       {children}
