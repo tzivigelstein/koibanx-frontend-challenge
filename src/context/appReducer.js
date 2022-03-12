@@ -1,4 +1,4 @@
-import { SET_LOADING, GET_STORES_SUCCESSFUL } from './types'
+import { SET_LOADING, GET_STORES_SUCCESSFUL, INCREMENT_PAGE, DECREMENT_PAGE } from './types'
 
 export default function appReducer(state, { type, payload }) {
   switch (type) {
@@ -6,6 +6,18 @@ export default function appReducer(state, { type, payload }) {
       return {
         ...state,
         loading: payload
+      }
+
+    case INCREMENT_PAGE:
+      return {
+        ...state,
+        page: state.page + payload
+      }
+
+    case DECREMENT_PAGE:
+      return {
+        ...state,
+        page: state.page - payload
       }
 
     case GET_STORES_SUCCESSFUL:
