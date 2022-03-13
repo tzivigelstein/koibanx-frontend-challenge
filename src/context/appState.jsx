@@ -18,6 +18,7 @@ import {
 } from './types'
 import { parseStores } from './utils/'
 
+const PROPOSED_BASE_URL = 'https://api.koibanx.com/stores?'
 const BASE_URL = import.meta.env.VITE_API_URL
 const API_KEY = import.meta.env.VITE_API_KEY
 const HEADERS = {
@@ -61,10 +62,14 @@ export default function AppState({ children }) {
 
     const jsonQuery = JSON.stringify(query)
 
+    const proposedUrl = `${PROPOSED_BASE_URL}q=${jsonQuery}&h={"$max": ${results}, "$skip":${
+      (page - 1) * results
+    }}&totals=true`
     const url = `${BASE_URL}q=${jsonQuery}&h={"$max": ${results}, "$skip":${(page - 1) * results}}&totals=true`
 
     console.log('GETTING STORES')
-    console.log(url)
+    console.log('Database url:', url)
+    console.log('Proposed url:', proposedUrl)
 
     dispatch({
       type: SET_LOADING,
@@ -131,8 +136,10 @@ export default function AppState({ children }) {
     const jsonHint = JSON.stringify(newHint)
 
     const url = `${BASE_URL}q=${jsonQuery}&h=${jsonHint}&totals=true`
+    const proposedUrl = `${PROPOSED_BASE_URL}q=${jsonQuery}&h=${jsonHint}&totals=true`
 
-    console.log(url)
+    console.log('Database url:', url)
+    console.log('Proposed url:', proposedUrl)
 
     fetch(url, { headers: HEADERS })
       .then(res => res.json())
@@ -157,7 +164,7 @@ export default function AppState({ children }) {
   }
 
   function sortBy(id) {
-    console.log('EXECUTING SORT', id)
+    console.log('EXECUTING SORT for', id)
 
     dispatch({
       type: SET_LOADING,
@@ -187,8 +194,10 @@ export default function AppState({ children }) {
     })
 
     const url = `${BASE_URL}q=${jsonQuery}&h=${jsonHint}&totals=true`
+    const proposedUrl = `${PROPOSED_BASE_URL}q=${jsonQuery}&h=${jsonHint}&totals=true`
 
-    console.log(url)
+    console.log('Database url:', url)
+    console.log('Proposed url:', proposedUrl)
 
     fetch(url, { headers: HEADERS })
       .then(res => res.json())
