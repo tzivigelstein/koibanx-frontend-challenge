@@ -8,7 +8,7 @@ In the project directory, you can run:
 
 Run `npm i` or `npm install` in project root to install the necessary packages.
 
-When developing, the database throws a CORS error when trying to connect.
+When developing, the database throws a `CORS` error when trying to connect.
 The only way I could solve this issue is to install the following extension in Chrome:
 
 - [Moesif Website](https://www.moesif.com/)
@@ -48,9 +48,9 @@ build looks OK in your local environment.
 The main problem to consider before getting started was to think of a way of retrieving the data
 from somewhere so the frontend mock process could be easier.
 
-After a while, I decided to mock the data with the online API/DB from restdb.io where the challenge
+After a while, I decided to mock the data with the online `API/DB` from restdb.io where the challenge
 suggested the queries.
-Having a JSON file that fulfills the function of a database wasn't the best option due to not being
+Having a `JSON` file that fulfills the function of a database wasn't the best option due to not being
 able to retrieve the data from the API and I would be losing contact with the particular query language.
 
 Having decided what source of data I would be using, I noticed that the challenge specifically asked
@@ -70,8 +70,8 @@ The restdb.io API has a feature that allows you to populate fields
 with a certain amount of random data. I created 100 documents with random data and the following types:
 
 - \_id: `ObjectId` - Such as the MongoDB \_id, created by restdb.io
-- store: `string` - An Address1 of a store with this format '8417 Veda Circles'.
-- CUIT: `string` - A Guid_short it's a Random ID. They don't have a CUIT generator.
-- concepts: `array<number>` - An array of random numbers. [2,3,4,5,1,6]
-- currentBalance: `number` - A random number between 30k and 3M.
+- store: `String` - An Address1 of a store with this format '8417 Veda Circles'.
+- CUIT: `String` - A Guid_short it's a Random ID. They don't have a CUIT generator.
+- concepts: `Array<number>` - An array of random numbers. [2,3,4,5,1,6]
+- currentBalance: `Number` - A random number between 30k and 3M.
 - lastTransaction: `Date` - A random date.
